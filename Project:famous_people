@@ -1,0 +1,74 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE famous_people(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    profession TEXT,
+    ranking INTEGER,
+    Country TEXT);
+
+
+INSERT INTO famous_people (name, profession,ranking,Country) values("APJ Abdul Kalam", "Scientist", 1, "India");
+INSERT INTO famous_people (name, profession,ranking,Country) values("Dalai lama", "Spritual Leadear", 2, "Tibet");
+INSERT INTO famous_people (name, profession,ranking,Country) values("sachin Tendulkar", "Cricket", 7, "India");
+INSERT INTO famous_people (name, profession,ranking,Country) values("CR7", "Footballer", 4, "Portgal");
+INSERT INTO famous_people (name, profession,ranking,Country) values("Elon Musk", "business man", 3, "USA");
+INSERT INTO famous_people (name, profession,ranking,Country) values("Messi", "Footballer", 6, "Argentina");
+INSERT INTO famous_people (name, profession,ranking,Country) values("Azim premji", "business man", 5, "India");
+
+INSERT INTO famous_people (name, profession,ranking,Country) values("Marilyn Monroe", "singer", 8, "USA");INSERT INTO famous_people (name, profession,ranking,Country) values("Nikole Tesla", "scientist", 9, "USA");
+
+
+CREATE TABLE about(
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              person_id INTEGER,
+              status TEXT);
+INSERT INTO about(person_id, status) values (1,"single"); 
+INSERT INTO about(person_id, status) values (2,"single"); 
+INSERT INTO about(person_id, status) values (3,"Married"); 
+INSERT INTO about(person_id, status) values (4,"Married"); 
+INSERT INTO about(person_id, status) values (5,"single"); 
+INSERT INTO about(person_id, status) values (6,"Married"); 
+INSERT INTO about(person_id, status) values (7,"Married"); 
+
+
+/*quering the table (Genral)*/
+SELECT * FROM famous_people;
+
+/*Order By*/
+SELECT * FROM famous_people ORDER BY ranking;
+
+/* Use of Where & order*/
+SELECT * FROM famous_people WHERE ranking < 6 order by country;
+/* Aggregating*/
+
+SELECT SUM(ranking) FROM famous_people;
+
+SELECT name,MAX(ranking) FROM famous_people;
+
+/* AND or OR operators*/
+SELECT * FROM famous_people WHERE ranking > 5 AND country = "USA";
+SELECT * FROM famous_people WHERE ranking > 5 OR country = "India";
+
+/* Having*/
+
+SELECT name, AVG(ranking) FROM famous_people  GROUP BY country = "India"
+HAVING ranking > 1;
+
+/* count*/
+SELECT name FROM famous_people  GROUP BY country = "India"
+HAVING COUNT(*) > 1;
+
+/*case*/
+SELECT name, ranking,
+    CASE
+        WHEN ranking < 3 THEN "A"
+        WHEN ranking  < 5 THEN "B"
+        WHEN ranking<  7 THEN "C"
+        ELSE "D"
+    END AS "Status"
+FROM famous_people
+ORDER BY ranking;
+
+/*Cross joining*/
+SELECT * FROM famous_people, about;
